@@ -13,6 +13,7 @@ public class ModBlockRenderers {
     public static void init()
     {
         reg(ModBlocks.blockIngotBlock);
+        reg(ModBlocks.blockBaseTank);
     }
 
     public static void reg(Block block)
