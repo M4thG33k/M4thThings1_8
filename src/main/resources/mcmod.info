@@ -1,0 +1,16 @@
+[
+{
+  "modid": "m4ththings",
+  "name": "M4th Things",
+  "description": "A utility mod to help you out on your adventures!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["M4thG33k"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
