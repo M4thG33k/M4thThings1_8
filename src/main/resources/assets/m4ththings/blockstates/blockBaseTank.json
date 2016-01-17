@@ -4,6 +4,7 @@
     "model": "m4ththings:blockBaseTank.obj"
   },
   "variants": {
-    "inventory": [{ "transform": "forge:default-block" }]
+    "inventory": [{ "transform": "forge:default-block" }],
+    "normal": [{"transform": "forge:default-block"}]
   }
 }

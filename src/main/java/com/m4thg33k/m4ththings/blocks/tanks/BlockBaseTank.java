@@ -1,6 +1,7 @@
 package com.m4thg33k.m4ththings.blocks.tanks;
 
 import com.m4thg33k.m4ththings.api.block.IDismantleable;
+import com.m4thg33k.m4ththings.tiles.TileBaseTank;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -37,7 +38,7 @@ public class BlockBaseTank extends Block implements ITileEntityProvider, IDisman
     @Override
     public TileEntity createNewTileEntity(World world, int meta)
     {
-        return null;
+        return new TileBaseTank();
     }
 
     @Override
@@ -68,5 +69,10 @@ public class BlockBaseTank extends Block implements ITileEntityProvider, IDisman
     @Override
     public boolean canDismantle(EntityPlayer player, World world, BlockPos blockPos) {
         return true;
+    }
+
+    @Override
+    public int getRenderType() {
+        return -1;
     }
 }

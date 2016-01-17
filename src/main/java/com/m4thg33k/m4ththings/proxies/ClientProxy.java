@@ -2,6 +2,7 @@ package com.m4thg33k.m4ththings.proxies;
 
 import com.m4thg33k.m4ththings.M4thThings;
 import com.m4thg33k.m4ththings.init.ModBlockRenderers;
+import com.m4thg33k.m4ththings.init.ModTERenderers;
 import net.minecraftforge.client.model.obj.OBJLoader;
 
 public class ClientProxy extends CommonProxy {
@@ -18,5 +19,6 @@ public class ClientProxy extends CommonProxy {
         super.init();
 
         ModBlockRenderers.init();
+        ModTERenderers.init();
     }
 }
