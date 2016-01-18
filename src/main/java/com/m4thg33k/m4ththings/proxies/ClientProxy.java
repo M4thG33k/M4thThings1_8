@@ -2,7 +2,12 @@ package com.m4thg33k.m4ththings.proxies;
 
 import com.m4thg33k.m4ththings.M4thThings;
 import com.m4thg33k.m4ththings.init.ModBlockRenderers;
+import com.m4thg33k.m4ththings.init.ModItemRenderers;
 import com.m4thg33k.m4ththings.init.ModTERenderers;
+import com.m4thg33k.m4ththings.interfaces.IM4thNBTSync;
+import com.m4thg33k.m4ththings.packets.PacketNBT;
+import net.minecraft.client.Minecraft;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.model.obj.OBJLoader;
 
 public class ClientProxy extends CommonProxy {
@@ -19,6 +24,22 @@ public class ClientProxy extends CommonProxy {
         super.init();
 
         ModBlockRenderers.init();
+        ModItemRenderers.init();
         ModTERenderers.init();
+    }
+
+    @Override
+    public void handleNBTPacket(PacketNBT message) {
+        if (message==null)
+        {
+            return;
+        }
+
+        TileEntity tileEntity = Minecraft.getMinecraft().theWorld.getTileEntity(message.blockPos);
+
+        if (tileEntity!=null && tileEntity instanceof IM4thNBTSync)
+        {
+            ((IM4thNBTSync)tileEntity).receiveNBTPacket(message.tagCompound);
+        }
     }
 }

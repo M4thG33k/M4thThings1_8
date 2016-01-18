@@ -7,6 +7,8 @@
 
 package com.m4thg33k.m4ththings.handlers;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -43,6 +45,13 @@ public class ClientTickHandler {
     {
         if (event.phase == TickEvent.Phase.END)
         {
+
+            GuiScreen gui = Minecraft.getMinecraft().currentScreen;
+            if (gui == null || !gui.doesGuiPauseGame())
+            {
+                ticksInGame++;
+                partialTicks = 0;
+            }
             calcDelta();
         }
     }

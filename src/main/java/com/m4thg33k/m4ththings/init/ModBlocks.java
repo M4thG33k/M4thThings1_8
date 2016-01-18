@@ -2,6 +2,7 @@ package com.m4thg33k.m4ththings.init;
 
 import com.m4thg33k.m4ththings.blocks.BlockIngotBlock;
 import com.m4thg33k.m4ththings.blocks.tanks.BlockBaseTank;
+import com.m4thg33k.m4ththings.items.ItemBaseTank;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -14,6 +15,6 @@ public final class ModBlocks {
     public static void init()
     {
         GameRegistry.registerBlock(blockIngotBlock, "blockIngotBlock");
-        GameRegistry.registerBlock(blockBaseTank, "blockBaseTank");
+        GameRegistry.registerBlock(blockBaseTank, ItemBaseTank.class, "blockBaseTank");
     }
 }

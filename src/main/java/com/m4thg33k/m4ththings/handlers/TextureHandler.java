@@ -12,6 +12,6 @@ public class TextureHandler {
     public void stitchTexture(TextureStitchEvent pre)
     {
         pre.map.registerSprite(new ResourceLocation("m4ththings","blocks/blockBaseTank"));
-        LogHelper.info("Registered the block tank texture!");
+        pre.map.registerSprite(new ResourceLocation("m4ththings","blocks/blockAdvancedTank"));
     }
 }
