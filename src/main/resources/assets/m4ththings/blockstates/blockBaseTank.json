@@ -1,12 +1,15 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "m4ththings:blockBaseTank.obj"
+    "model": "m4ththings:blockBaseTank.obj",
+    "custom": {"flip-v": true}
   },
   "variants": {
     "inventory": [{ "transform": {
       "translation": [0.5, 0.5, 0.5]
     }}],//"transform": "forge:default-block" }],
-    "normal": [{"transform": "forge:default-block"}]
+    "normal": [{"transform": {
+      "translation": [0.5, 0.5, 0.5]}//"forge:default-block"}]
+    }]
   }
 }

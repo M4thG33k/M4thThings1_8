@@ -1,21 +1,30 @@
 package com.m4thg33k.m4ththings.renderers.tiles;
 
+import com.m4thg33k.m4ththings.M4thThings;
 import com.m4thg33k.m4ththings.Utility.LogHelper;
+import com.m4thg33k.m4ththings.Utility.NameHelper;
 import com.m4thg33k.m4ththings.handlers.ClientTickHandler;
+import com.m4thg33k.m4ththings.handlers.TextureHandler;
 import com.m4thg33k.m4ththings.interfaces.IBaseTankModel;
 import com.m4thg33k.m4ththings.models.ModelBaseTank;
 import com.m4thg33k.m4ththings.models.ModelHelper;
 import com.m4thg33k.m4ththings.models.ModelSphere;
+import com.m4thg33k.m4ththings.renderers.tiles.utilities.RendererHelper;
 import com.m4thg33k.m4ththings.renderers.tiles.utilities.SphereRenderer;
 import com.m4thg33k.m4ththings.tiles.TileBaseTank;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
@@ -69,7 +78,7 @@ public class BaseTankRenderer extends TileEntitySpecialRenderer<TileBaseTank>{
         //GlStateManager.rotate((float) worldTime * 1.5f, 0f, 1f, 0f);
 
         //GlStateManager.disableCull();
-        model.renderValves(te.isAdvanced());
+        //model.renderValves(te.isAdvanced()); //RENDER THE VALVES
 
         //attempt to model the sphere
         if (te.getAmount()>0)
@@ -83,6 +92,10 @@ public class BaseTankRenderer extends TileEntitySpecialRenderer<TileBaseTank>{
             sphere = new ModelSphere(te.getFluid().getFluid().getStill());
             sphere.renderSphere();
             GlStateManager.popMatrix();
+
+            //M4thThings.proxy.renderFillParticles(te.getWorld(),te.getPos(),te.getFluid().getFluid().getName());
+
+
         }
 
 
@@ -106,5 +119,76 @@ public class BaseTankRenderer extends TileEntitySpecialRenderer<TileBaseTank>{
         GlStateManager.popMatrix();
 
 
+        //render the overlays (hopefully)
+        renderOverlay(x,y,z,te.getMode());
+
+
+    }
+
+    public void renderOverlay(double x, double y, double z, int mode)
+    {
+        if (mode==0)
+        {
+            return;
+        }
+//        switch (mode)
+//        {
+//            case 1:
+//                //bindTexture(NameHelper.newLocation("blocks/drainOverlay.png"));
+//                //bindTexture(drainOverlay);
+//                //break;
+//            case 2:
+//
+//                bindTexture(NameHelper.newLocation("blocks/tankOverlays.png"));
+//                //bindTexture(NameHelper.newLocation("blocks/placeOverlay.png"));
+//                //bindTexture(placeOverlay);
+//                break;
+//            default:
+//                return;
+//        }
+
+        bindTexture(TextureMap.locationBlocksTexture);
+
+        float umin = TextureHandler.tankOverlays.getMinU();
+        float vmin = TextureHandler.tankOverlays.getMinV();
+        float umax = TextureHandler.tankOverlays.getMaxU();
+        float vmax = TextureHandler.tankOverlays.getMaxV();
+
+        float separation = (float)(11.0/128)*(vmax-vmin);
+
+        switch (mode)
+        {
+            case 2: //place mode
+                vmin += separation;
+                break;
+            default: //==1 drain mode
+                break;
+        }
+
+        vmax = vmin + separation;
+
+
+        int width = TextureHandler.tankOverlays.getIconWidth();
+        //draw overlays
+        Tessellator tess = Tessellator.getInstance();
+        WorldRenderer renderer = tess.getWorldRenderer();
+        GlStateManager.pushMatrix();
+//        GlStateManager.enableAlpha();
+        GlStateManager.translate(x,y,z);
+        renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+
+//        renderer.pos(0,0,0).tex(umin,vmax).endVertex();
+//        renderer.pos(0,1,0).tex(umin,vmin).endVertex();
+//        renderer.pos(1,1,0).tex(umax,vmin).endVertex();
+//        renderer.pos(1,0,0).tex(umax,vmax).endVertex();
+
+        renderer.pos(0.33,0,0.33).tex(0.0,1.0).endVertex();
+        renderer.pos(0.33,0.03,0.33).tex(0.0,0.0).endVertex();
+        renderer.pos(0.67,0.03,0.33).tex(1.0,0.0).endVertex();
+        renderer.pos(0.67,0,0.33).tex(1.0,1.0).endVertex();
+        tess.draw();
+
+//        GlStateManager.disableAlpha();
+        GlStateManager.popMatrix();
     }
 }

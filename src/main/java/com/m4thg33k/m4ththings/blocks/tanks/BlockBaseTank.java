@@ -183,7 +183,8 @@ public class BlockBaseTank extends Block implements ITileEntityProvider, IDisman
 
     @Override
     public int getRenderType() {
-        return -1;
+        return super.getRenderType();
+//        return -1;
     }
 
     @Override

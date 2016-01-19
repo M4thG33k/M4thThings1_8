@@ -2,6 +2,7 @@ package com.m4thg33k.m4ththings.tiles;
 
 import com.m4thg33k.m4ththings.interfaces.IM4thNBTSync;
 import com.m4thg33k.m4ththings.packets.ModPackets;
+import com.m4thg33k.m4ththings.packets.PacketFilling;
 import com.m4thg33k.m4ththings.packets.PacketNBT;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -122,7 +123,9 @@ public class TileBaseTank extends TileFluidHandler implements ITickable, IM4thNB
             int toReturn = super.fill(from, resource, doFill);
             if (doFill && toReturn>0)
             {
-                //// TODO: 1/16/2016 send packet to client
+                int direction = (from==null ? 6 : from.ordinal());
+
+                ModPackets.INSTANCE.sendToAllAround(new PacketFilling(pos,direction,1,resource.getFluid().getName(),toReturn),new NetworkRegistry.TargetPoint(worldObj.provider.getDimensionId(),pos.getX(),pos.getY(),pos.getZ(),32));
             }
             if (toReturn != resource.amount && from!= EnumFacing.UP && resource.isFluidEqual(tank.getFluid())) //if we have "leftovers"
             {
@@ -134,7 +137,7 @@ public class TileBaseTank extends TileFluidHandler implements ITickable, IM4thNB
                 }
                 if (pushing > 0)
                 {
-                    //// TODO: 1/16/2016 send packet to client
+                    ModPackets.INSTANCE.sendToAllAround(new PacketFilling(pos,EnumFacing.UP.ordinal(),0,resource.getFluid().getName(),toReturn), new NetworkRegistry.TargetPoint(worldObj.provider.getDimensionId(),pos.getX(),pos.getY(),pos.getZ(),32));
                     toReturn += ((TileBaseTank)tileEntity).fill(EnumFacing.DOWN, new FluidStack(resource, resource.amount-toReturn), doFill);
                 }
             }
@@ -155,7 +158,8 @@ public class TileBaseTank extends TileFluidHandler implements ITickable, IM4thNB
             FluidStack ret = super.drain(from,resource,doDrain);
             if (doDrain && ret.amount>0)
             {
-                // TODO: 1/16/2016 send packet to client
+                int direction = (from==null ? 6 : from.ordinal());
+                ModPackets.INSTANCE.sendToAllAround(new PacketFilling(pos,direction,0,resource.getFluid().getName(),ret.amount), new NetworkRegistry.TargetPoint(worldObj.provider.getDimensionId(),pos.getX(),pos.getY(),pos.getZ(),32));
             }
             return ret;
         }
@@ -169,7 +173,8 @@ public class TileBaseTank extends TileFluidHandler implements ITickable, IM4thNB
             FluidStack ret = super.drain(from,maxDrain,doDrain);
             if (doDrain && ret != null && ret.amount > 0)
             {
-                // TODO: 1/16/2016 send packet to client
+                int direction = (from == null ? 6 : from.ordinal());
+                ModPackets.INSTANCE.sendToAllAround(new PacketFilling(pos,direction,0,ret.getFluid().getName(),ret.amount), new NetworkRegistry.TargetPoint(worldObj.provider.getDimensionId(),pos.getX(),pos.getY(),pos.getZ(),32));
             }
             return ret;
         }

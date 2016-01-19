@@ -46,6 +46,10 @@ public class ItemBaseTank extends ItemBlock implements IFluidContainerItem {
             tooltip.add(FluidRegistry.getFluid(tagCompound.getString("FluidName")).getLocalizedName(null));
             tooltip.add(tagCompound.getInteger("Amount") + "/" + capacity + "mb");
         }
+        else
+        {
+            tooltip.add("<Empty>");
+        }
     }
 
     @Override

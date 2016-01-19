@@ -1,6 +1,6 @@
 {
   "parent": "m4ththings:item/standard_item",
   "textures": {
-    "layer0": "m4ththings:items/itemWrench"
+    "layer0": "m4ththings:items/itemModNugget_0"
   }
 }
