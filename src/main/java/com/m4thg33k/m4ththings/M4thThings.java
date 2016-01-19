@@ -23,6 +23,8 @@ public class M4thThings {
         }
     };
 
+    //this is a test
+
 
     @Mod.Instance
     public static M4thThings instance = new M4thThings();
