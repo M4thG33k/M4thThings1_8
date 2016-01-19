@@ -84,7 +84,7 @@ public class RendererHelper {
     }
 
     public static void postTextureStitch(TextureStitchEvent.Post e) throws Exception{
-        saveGlTexture("test",e.map.getGlTextureId(),0,true);
+        saveGlTexture("test",e.map.getGlTextureId(),0,false);
     }
 
     public static void createFluidColorMaps()

@@ -1,8 +1,8 @@
 package com.m4thg33k.m4ththings.blocks;
 
+import com.m4thg33k.m4ththings.M4thThings;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 
 public class BlockIngotBlock extends Block {
 
@@ -10,8 +10,10 @@ public class BlockIngotBlock extends Block {
     {
         super(material);
         this.setUnlocalizedName(unlocalizedName);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(M4thThings.mainM4thTab);
         this.setHardness(hardness);
         this.setResistance(resistance);
     }
+
+
 }

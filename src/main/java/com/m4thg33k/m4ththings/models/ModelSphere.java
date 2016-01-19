@@ -32,7 +32,7 @@ public class ModelSphere {
             OBJModel model = ((OBJModel) OBJLoader.instance.loadModel(new ResourceLocation("m4ththings:models/block/fancySphere.obj")));
 
             //attempt to texture the model
-            IModel sphereModel = ((OBJModel) model.retexture(ImmutableMap.of("#None",textureLocation.toString())));
+            IModel sphereModel = ((OBJModel) model.retexture(ImmutableMap.of("#fancySphere",textureLocation.toString())));
 
             //turn on sphere
             sphere = sphereModel.bake(TRSRTransformation.identity(), Attributes.DEFAULT_BAKED_FORMAT, ModelHelper.TEXTUREGETTER);

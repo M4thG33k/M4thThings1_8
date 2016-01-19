@@ -1,6 +1,6 @@
 # Blender v2.74 (sub 0) OBJ File: 'fluidTank3.blend'
 # www.blender.org
-mtllib blockBaseTank.mtl
+mtllib blockAdvancedTank.mtl
 o Cube.001_Cube.011
 v -0.166667 -0.500000 0.166667
 v 0.166667 -0.500000 0.166667
@@ -372,7 +372,7 @@ vn 1.000000 0.000000 0.000000
 vn 0.000000 1.000000 0.000000
 vn 0.000000 0.000000 -1.000000
 vn -1.000000 0.000000 0.000000
-usemtl blockBaseTank
+usemtl blockAdvancedTank
 s off
 f 3/1/1 4/2/1 2/3/1
 f 1/4/2 2/5/2 24/6/2

@@ -1,5 +1,6 @@
 package com.m4thg33k.m4ththings.items;
 
+import com.m4thg33k.m4ththings.M4thThings;
 import com.m4thg33k.m4ththings.Utility.NameHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -14,6 +15,7 @@ public class ItemModCrafting extends Item {
     {
         setUnlocalizedName(NameHelper.blockItemName("itemModCrafting"));
         setMaxStackSize(64);
+        setCreativeTab(M4thThings.mainM4thTab);
     }
 
     @Override

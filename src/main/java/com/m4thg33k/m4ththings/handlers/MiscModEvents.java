@@ -10,7 +10,7 @@ public class MiscModEvents {
     @SubscribeEvent
     public void makeMap(TextureStitchEvent.Post event) throws Exception
     {
-        LogHelper.info("Starting to make the map!");
+        //LogHelper.info("Starting to make the map!");
         RendererHelper.postTextureStitch(event);
     }
 }

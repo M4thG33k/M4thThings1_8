@@ -119,9 +119,9 @@ public class BaseTankRenderer extends TileEntitySpecialRenderer<TileBaseTank>{
         GlStateManager.popMatrix();
 
 
-        //render the overlays (hopefully)
-        renderOverlay(x,y,z,te.getMode());
-
+        if (Minecraft.getMinecraft().thePlayer.getDistanceSq(te.getPos())<40) {        //render the overlays (hopefully)
+            renderOverlay(x, y, z, te.getMode());
+        }
 
     }
 
@@ -149,43 +149,64 @@ public class BaseTankRenderer extends TileEntitySpecialRenderer<TileBaseTank>{
 
         bindTexture(TextureMap.locationBlocksTexture);
 
-        float umin = TextureHandler.tankOverlays.getMinU();
-        float vmin = TextureHandler.tankOverlays.getMinV();
-        float umax = TextureHandler.tankOverlays.getMaxU();
-        float vmax = TextureHandler.tankOverlays.getMaxV();
-
-        float separation = (float)(11.0/128)*(vmax-vmin);
-
+        TextureAtlasSprite tas;
         switch (mode)
         {
-            case 2: //place mode
-                vmin += separation;
+            case 2:
+                tas = TextureHandler.placeOverlay;
                 break;
-            default: //==1 drain mode
+            default:
+                tas = TextureHandler.drainOverlay;
                 break;
         }
 
-        vmax = vmin + separation;
+        float umin = tas.getMinU();
+        float vmin = tas.getMinV();
+        float umax = tas.getMaxU();
+        float vmax = tas.getMaxV();
 
 
-        int width = TextureHandler.tankOverlays.getIconWidth();
+        float temp = (float)(21.0/64.0)*(umax-umin);
+        float temp2 = (float)(42.0/64.0)*(umax-umin);
+        umax = umin + temp2;
+        umin += temp;
+//        umax = temp2;
+
+
+
         //draw overlays
         Tessellator tess = Tessellator.getInstance();
         WorldRenderer renderer = tess.getWorldRenderer();
         GlStateManager.pushMatrix();
 //        GlStateManager.enableAlpha();
         GlStateManager.translate(x,y,z);
+
         renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        renderer.pos(0.33,0,0.33).tex(umin,vmax).endVertex();
+        renderer.pos(0.33,1.0,0.33).tex(umax,vmin).endVertex();
+        renderer.pos(0.67,1.0,0.33).tex(umax,vmin).endVertex();
+        renderer.pos(0.67,0,0.33).tex(umax,vmax).endVertex();
+        tess.draw();
 
-//        renderer.pos(0,0,0).tex(umin,vmax).endVertex();
-//        renderer.pos(0,1,0).tex(umin,vmin).endVertex();
-//        renderer.pos(1,1,0).tex(umax,vmin).endVertex();
-//        renderer.pos(1,0,0).tex(umax,vmax).endVertex();
+        renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        renderer.pos(0.67,0,0.33).tex(umin,vmax).endVertex();
+        renderer.pos(0.67,1.0,0.33).tex(umax,vmin).endVertex();
+        renderer.pos(0.67,1.0,0.67).tex(umax,vmin).endVertex();
+        renderer.pos(0.67,0,0.67).tex(umax,vmax).endVertex();
+        tess.draw();
 
-        renderer.pos(0.33,0,0.33).tex(0.0,1.0).endVertex();
-        renderer.pos(0.33,0.03,0.33).tex(0.0,0.0).endVertex();
-        renderer.pos(0.67,0.03,0.33).tex(1.0,0.0).endVertex();
-        renderer.pos(0.67,0,0.33).tex(1.0,1.0).endVertex();
+        renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        renderer.pos(0.67,0,0.67).tex(umin,vmax).endVertex();
+        renderer.pos(0.67,1.0,0.67).tex(umax,vmin).endVertex();
+        renderer.pos(0.33,1.0,0.67).tex(umax,vmin).endVertex();
+        renderer.pos(0.33,0,0.67).tex(umax,vmax).endVertex();
+        tess.draw();
+//
+        renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        renderer.pos(0.33,0,0.67).tex(umin,vmax).endVertex();
+        renderer.pos(0.33,1.0,0.67).tex(umax,vmin).endVertex();
+        renderer.pos(0.33,1.0,0.33).tex(umax,vmin).endVertex();
+        renderer.pos(0.33,0,0.33).tex(umax,vmax).endVertex();
         tess.draw();
 
 //        GlStateManager.disableAlpha();

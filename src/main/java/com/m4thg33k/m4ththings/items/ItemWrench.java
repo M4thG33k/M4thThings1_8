@@ -1,5 +1,6 @@
 package com.m4thg33k.m4ththings.items;
 
+import com.m4thg33k.m4ththings.M4thThings;
 import com.m4thg33k.m4ththings.Utility.LogHelper;
 import com.m4thg33k.m4ththings.api.block.IDismantleable;
 import com.m4thg33k.m4ththings.api.item.IToolHammer;
@@ -21,6 +22,7 @@ public class ItemWrench extends Item implements IToolHammer {
     {
         setUnlocalizedName("itemWrench");
         setMaxStackSize(1);
+        setCreativeTab(M4thThings.mainM4thTab);
     }
 
     @Override

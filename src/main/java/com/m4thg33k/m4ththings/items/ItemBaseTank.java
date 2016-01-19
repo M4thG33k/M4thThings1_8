@@ -1,17 +1,19 @@
 package com.m4thg33k.m4ththings.items;
 
+import com.m4thg33k.m4ththings.M4thThings;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
+import org.lwjgl.input.Keyboard;
 
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class ItemBaseTank extends ItemBlock implements IFluidContainerItem {
         super(block);
         capacity = 8000;
         setMaxStackSize(16);
+        setCreativeTab(M4thThings.mainM4thTab);
     }
 
     public ItemBaseTank setCapacity(int capacity)
@@ -39,17 +42,29 @@ public class ItemBaseTank extends ItemBlock implements IFluidContainerItem {
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("FluidName"))
-        {
-            NBTTagCompound tagCompound = stack.getTagCompound();
 
-            tooltip.add(FluidRegistry.getFluid(tagCompound.getString("FluidName")).getLocalizedName(null));
-            tooltip.add(tagCompound.getInteger("Amount") + "/" + capacity + "mb");
+        boolean shifted = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
+
+        if (!shifted) {
+            if (stack.hasTagCompound() && stack.getTagCompound().hasKey("FluidName")) {
+                NBTTagCompound tagCompound = stack.getTagCompound();
+
+                tooltip.add(FluidRegistry.getFluid(tagCompound.getString("FluidName")).getLocalizedName(null));
+                tooltip.add(tagCompound.getInteger("Amount") + "/" + capacity + "mb");
+            } else {
+                tooltip.add("<Empty>");
+            }
+            tooltip.add(EnumChatFormatting.ITALIC + "Hold shift for a bit more info...");
         }
         else
         {
-            tooltip.add("<Empty>");
+            tooltip.add("After placing:");
+            tooltip.add("Sneak-rClick: Change modes");
+            tooltip.add("rclick + empty hand: see data");
+            tooltip.add(EnumChatFormatting.BOLD+"Ladder included!");
         }
+
+
     }
 
     @Override

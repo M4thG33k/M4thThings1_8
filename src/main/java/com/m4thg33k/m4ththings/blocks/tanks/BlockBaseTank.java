@@ -1,5 +1,6 @@
 package com.m4thg33k.m4ththings.blocks.tanks;
 
+import com.m4thg33k.m4ththings.M4thThings;
 import com.m4thg33k.m4ththings.Utility.ChatHelper;
 import com.m4thg33k.m4ththings.api.block.IDismantleable;
 import com.m4thg33k.m4ththings.api.item.IToolHammer;
@@ -39,6 +40,7 @@ public class BlockBaseTank extends Block implements ITileEntityProvider, IDisman
         setUnlocalizedName(blockName);
         setStepSound(Blocks.glass.stepSound);
         setHarvestLevel("pickaxe",2);
+        setCreativeTab(M4thThings.mainM4thTab);
     }
 
     public String getBlockName()
@@ -278,6 +280,16 @@ public class BlockBaseTank extends Block implements ITileEntityProvider, IDisman
             else
             {
                 mode = ((TileBaseTank) tileEntity).getMode();
+                int amount = ((TileBaseTank) tileEntity).getAmount();
+                if (amount > 0)
+                {
+                    FluidStack fluidStack = ((TileBaseTank) tileEntity).getFluid();
+                    ChatHelper.sayMessage(world,player,fluidStack.getLocalizedName() + ": " + amount + "/" + ((TileBaseTank) tileEntity).getCap() + "mb");
+                }
+                else
+                {
+                    ChatHelper.sayMessage(world,player,"The tank is empty!");
+                }
             }
             displayMode(world,player,mode);
             return true;

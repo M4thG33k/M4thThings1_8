@@ -5,6 +5,7 @@ import com.m4thg33k.m4ththings.packets.ModPackets;
 import com.m4thg33k.m4ththings.packets.PacketFilling;
 import com.m4thg33k.m4ththings.packets.PacketNBT;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -22,6 +23,8 @@ public class TileBaseTank extends TileFluidHandler implements ITickable, IM4thNB
     protected int mode;
     protected int numModes = 3;
     protected boolean advanced;
+    protected int timer = 0;
+    protected int placeTime = 60;
 
     public TileBaseTank()
     {
@@ -41,6 +44,7 @@ public class TileBaseTank extends TileFluidHandler implements ITickable, IM4thNB
 
     @Override
     public void update() {
+        timer = (timer+1)%placeTime;
 //        if (oldTank==null)
 //        {
 //            oldTank = new FluidTank(cap);
@@ -59,7 +63,7 @@ public class TileBaseTank extends TileFluidHandler implements ITickable, IM4thNB
         {
             attemptPush();
         }
-        else if (mode==2)
+        else if (mode==2 && timer==0)
         {
             attemptPlacement();
         }
@@ -83,6 +87,11 @@ public class TileBaseTank extends TileFluidHandler implements ITickable, IM4thNB
             mode = tag.getInteger("Mode");
         }
 
+        if (tag.hasKey("Timer"))
+        {
+            timer = tag.getInteger("Timer");
+        }
+
 //        if (tag.hasKey("Timer"))
 //        {
 //            timer = tag.getInteger("Timer")%360;
@@ -93,6 +102,7 @@ public class TileBaseTank extends TileFluidHandler implements ITickable, IM4thNB
     public void writeToNBT(NBTTagCompound tag) {
         super.writeToNBT(tag);
         tag.setInteger("Mode",mode);
+        tag.setInteger("Timer",timer);
 //        tag.setInteger("Timer",timer);
     }
 
@@ -255,7 +265,11 @@ public class TileBaseTank extends TileFluidHandler implements ITickable, IM4thNB
         }
         Block toPlace = tank.getFluid().getFluid().getBlock();
         worldObj.setBlockState(pos.down(),toPlace.getDefaultState());
-        worldObj.getBlockState(pos.down()).getBlock().onNeighborBlockChange(worldObj,pos.down(),null,null);
+        IBlockState placed = worldObj.getBlockState(pos.down());
+//        Block placedBlock = placed.getBlock();
+//        placedBlock.onNeighborBlockChange(worldObj,pos.down(),null,null);
+        worldObj.getBlockState(pos.down()).getBlock().onNeighborBlockChange(worldObj,pos.down(),placed,null);
+//        worldObj.getBlockState(pos.down()).getBlock().onNeighborChange(worldObj,pos.down(),pos);
         drain(EnumFacing.DOWN,1000,true);
     }
 

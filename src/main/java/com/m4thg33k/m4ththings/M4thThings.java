@@ -1,7 +1,10 @@
 package com.m4thg33k.m4ththings;
 
 import com.m4thg33k.m4ththings.init.ModBlocks;
+import com.m4thg33k.m4ththings.init.ModItems;
 import com.m4thg33k.m4ththings.proxies.CommonProxy;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -12,6 +15,13 @@ public class M4thThings {
     public static final String MOD_ID = "m4ththings";
     public static final String MOD_NAME = "M4th Things";
     public static final String VERSION = "@VERSION@";
+
+    public static final CreativeTabs mainM4thTab = new CreativeTabs(CreativeTabs.getNextID(),"mainM4thTab"){
+        @Override
+        public Item getTabIconItem() {
+            return ModItems.itemWrench;
+        }
+    };
 
 
     @Mod.Instance

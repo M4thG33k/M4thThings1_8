@@ -9,7 +9,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class TextureHandler {
 
-    public static TextureAtlasSprite tankOverlays;
+    public static TextureAtlasSprite drainOverlay;
+    public static TextureAtlasSprite placeOverlay;
 
 
     @SubscribeEvent
@@ -19,8 +20,8 @@ public class TextureHandler {
         pre.map.registerSprite(new ResourceLocation("m4ththings","blocks/blockBaseTank"));
         pre.map.registerSprite(new ResourceLocation("m4ththings","blocks/blockAdvancedTank"));
 
-//        pre.map.registerSprite(NameHelper.newLocation("blocks/drainOverlay"));
-//        pre.map.registerSprite(NameHelper.newLocation("blocks/placeOverlay"));
-        tankOverlays = pre.map.registerSprite(NameHelper.newLocation("blocks/tankOverlays"));
+        drainOverlay = pre.map.registerSprite(NameHelper.newLocation("blocks/drainOverlay"));
+        placeOverlay = pre.map.registerSprite(NameHelper.newLocation("blocks/placeOverlay"));
+        //tankOverlays = pre.map.registerSprite(NameHelper.newLocation("blocks/tankOverlays"));
     }
 }

@@ -1,5 +1,6 @@
 package com.m4thg33k.m4ththings.items;
 
+import com.m4thg33k.m4ththings.M4thThings;
 import com.m4thg33k.m4ththings.Utility.NameHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,6 +11,7 @@ public class ItemModNugget extends Item {
     {
         setUnlocalizedName(NameHelper.blockItemName("itemModNugget"));
         setMaxStackSize(64);
+        setCreativeTab(M4thThings.mainM4thTab);
     }
 
     @Override

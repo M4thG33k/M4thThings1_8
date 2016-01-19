@@ -1,7 +1,7 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "m4ththings:blockBaseTank.obj",
+    "model": "m4ththings:blockAdvancedTank.obj",
     "custom": {"flip-v": true}
   },
   "variants": {

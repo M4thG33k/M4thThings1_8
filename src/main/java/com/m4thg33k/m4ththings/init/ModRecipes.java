@@ -27,10 +27,10 @@ public class ModRecipes {
         //BaseTank
         GameRegistry.addRecipe(new ItemStack(ModBlocks.blockBaseTank,1),"lv ","g g"," v ",'l',new ItemStack(Item.getItemFromBlock(Blocks.ladder),1),'v',new ItemStack(ModItems.itemModCrafting,1,0),'g',new ItemStack(Blocks.glass,1));
         GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockBaseTank,1),new ItemStack(ModBlocks.blockBaseTank,1));
-//        //AdvancedTank
-//        GameRegistry.addRecipe(new ItemStack(ModBlocks.blockAdvancedTank,1),"lv ","gBg"," v ",'l',new ItemStack(Item.getItemFromBlock(Blocks.ladder),1),'v', new ItemStack(ModItems.itemModCrafting,1,0),'g',new ItemStack(Blocks.glass,1),'B',new ItemStack(ModBlocks.blockIngotBlock,1,0));
-//        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockAdvancedTank,1),new ItemStack(ModBlocks.blockBaseTank,1),new ItemStack(ModBlocks.blockIngotBlock,1,0));
-//        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockAdvancedTank,1),new ItemStack(ModBlocks.blockAdvancedTank,1));
+        //AdvancedTank
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.blockAdvancedTank,1),"lv ","gBg"," v ",'l',new ItemStack(Item.getItemFromBlock(Blocks.ladder),1),'v', new ItemStack(ModItems.itemModCrafting,1,0),'g',new ItemStack(Blocks.glass,1),'B',new ItemStack(ModBlocks.blockIngotBlock,1,0));
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockAdvancedTank,1),new ItemStack(ModBlocks.blockBaseTank,1),new ItemStack(ModBlocks.blockIngotBlock,1,0));
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.blockAdvancedTank,1),new ItemStack(ModBlocks.blockAdvancedTank,1));
 //        //Pipe-seeing button
 //        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.itemPipeVisionToggler,1), new ItemStack(Blocks.wooden_button,1), new ItemStack(ModItems.itemWrench.setContainerItem(ModItems.itemWrench),1, OreDictionary.WILDCARD_VALUE));
 //        //fluid transport entry
