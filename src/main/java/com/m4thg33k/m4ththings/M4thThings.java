@@ -23,7 +23,7 @@ public class M4thThings {
         }
     };
 
-    //this is a test
+    //0.0.1-alpha
 
 
     @Mod.Instance
