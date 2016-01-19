@@ -1,3 +1,8 @@
+apply plugin: 'java'
+compileJava {
+    targetCompatibility = '1.8'
+    sourceCompatibility = '1.8'
+}
 
 // For those who want the bleeding edge
 buildscript {
@@ -80,3 +85,5 @@ processResources
         exclude 'mcmod.info'
     }
 }
+
+
