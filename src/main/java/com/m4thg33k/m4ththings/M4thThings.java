@@ -23,6 +23,7 @@ public class M4thThings {
         }
     };
 
+    //0.0.1-alpha
 
     @Mod.Instance
     public static M4thThings instance = new M4thThings();
