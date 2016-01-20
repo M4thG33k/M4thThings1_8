@@ -1,0 +1,28 @@
+{
+  "parent": "m4ththings:block/blockTransportBlock",
+  "display": {
+    "thirdperson": {
+      "rotation": [
+        10,
+        -45,
+        170
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    }
+  },
+  "inventory": {
+    "rotation": [0, 0, 0],
+    "translation": [ -2, 0, 0.5],
+    "scale": [3, 3, 3]
+  }
+
+}

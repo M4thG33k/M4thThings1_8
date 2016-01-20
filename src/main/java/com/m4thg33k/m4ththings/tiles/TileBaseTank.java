@@ -214,7 +214,8 @@ public class TileBaseTank extends TileFluidHandler implements ITickable, IM4thNB
         {
             NBTTagCompound tagCompound = new NBTTagCompound();
             this.writeToNBT(tagCompound);
-            ModPackets.INSTANCE.sendToAllAround(new PacketNBT(pos,tagCompound), new NetworkRegistry.TargetPoint(worldObj.provider.getDimensionId(),pos.getX(),pos.getY(),pos.getZ(),32));
+            ModPackets.sendNBTPacket(worldObj,tagCompound,pos,32);
+            this.markDirty();
         }
     }
 
