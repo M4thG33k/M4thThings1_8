@@ -15,6 +15,7 @@ public class ModBlockRenderers {
         reg(ModBlocks.blockIngotBlock);
         reg(ModBlocks.blockBaseTank);
         reg(ModBlocks.blockAdvancedTank);
+        reg(ModBlocks.blockTransportBlock);
     }
 
     public static void reg(Block block)
