@@ -31,8 +31,11 @@ public class ModelSphere {
             //OBJModel model = ((OBJModel) OBJLoader.instance.loadModel(new ResourceLocation("m4ththings:models/block/standardSphere.obj")));
             OBJModel model = ((OBJModel) OBJLoader.instance.loadModel(new ResourceLocation("m4ththings:models/block/fancySphere.obj")));
 
+
             //attempt to texture the model
-            IModel sphereModel = ((OBJModel) model.retexture(ImmutableMap.of("#fancySphere",textureLocation.toString())));
+//            IModel sphereModel = ((OBJModel) model.retexture(ImmutableMap.of("#fancySphere",textureLocation.toString())));
+            IModel sphereModel = ((OBJModel) model.retexture(ImmutableMap.of("#fancySphere","minecraft:white")));
+
 
             //turn on sphere
             sphere = sphereModel.bake(TRSRTransformation.identity(), Attributes.DEFAULT_BAKED_FORMAT, ModelHelper.TEXTUREGETTER);
@@ -44,7 +47,7 @@ public class ModelSphere {
         }
     }
 
-    public void renderSphere()
+    public void renderSphere(boolean isSolidColor)
     {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldRenderer = tessellator.getWorldRenderer();
@@ -54,6 +57,11 @@ public class ModelSphere {
         ModelHelper.renderQuads(worldRenderer, sphere.getGeneralQuads(), -1);
         //this.renderQuads(worldRenderer, sphere.getGeneralQuads(),-1);
         tessellator.draw();
+    }
+
+    public IFlexibleBakedModel getSphere()
+    {
+        return sphere;
     }
 
 

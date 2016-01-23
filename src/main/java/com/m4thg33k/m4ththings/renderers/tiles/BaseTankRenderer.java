@@ -24,10 +24,13 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Vec3;
 import net.minecraftforge.client.model.Attributes;
+import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.glu.Sphere;
 
 import java.util.Random;
 
@@ -60,7 +63,7 @@ public class BaseTankRenderer extends TileEntitySpecialRenderer<TileBaseTank>{
         GlStateManager.enableRescaleNormal();
         //GlStateManager.enableBlend();
         //GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GlStateManager.color(0.0f,0.0f,0.0f, 1.0f);
+//        GlStateManager.color(0.0f,0.0f,0.0f, 1.0f);
 
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
         //Minecraft.getMinecraft().renderEngine.bindTexture(texture);
@@ -86,12 +89,25 @@ public class BaseTankRenderer extends TileEntitySpecialRenderer<TileBaseTank>{
             double perc = te.getPercentFilled();
             double scale = perc*0.75;
             GlStateManager.pushMatrix();
+//            GlStateManager.color(0,0,0,0.5f);
             GlStateManager.translate(0,0.05*perc*Math.sin(worldTime/20),0);
             GlStateManager.rotate((float)worldTime,0.0f,1.0f,0.0f);
             GlStateManager.scale(scale,scale,scale);
+
+
+
             sphere = new ModelSphere(te.getFluid().getFluid().getStill());
-            sphere.renderSphere();
+//            sphere.renderSphere(true);
+            IFlexibleBakedModel sphereModel = sphere.getSphere();
+
+            Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(sphereModel,0.5f,1,0,0);
+
             GlStateManager.popMatrix();
+
+
+//            Vec3 fluidColor = RendererHelper.getFluidRGB(te.getFluid().getFluid().getName());
+//            GlStateManager.pushMatrix();
+//            SphereRenderer.renderSolidColorSphere(0,0.05*perc*Math.sin(worldTime/20),0,worldTime,scale,fluidColor);
 
             //M4thThings.proxy.renderFillParticles(te.getWorld(),te.getPos(),te.getFluid().getFluid().getName());
 

@@ -103,7 +103,7 @@ public class RendererHelper {
                 LogHelper.info("Danger Will Robinson! The texture is null...for some reason...");
             }
 
-            createFluidColorMaps();
+            createFluidColorMaps(true);
         }
     }
 
@@ -111,11 +111,12 @@ public class RendererHelper {
         saveGlTexture("test",e.map.getGlTextureId(),0,false);
     }
 
-    public static void createFluidColorMaps()
+    public static void createFluidColorMaps(boolean override)
     {
-        LogHelper.info("Attempting to create the fluid color maps");
-        if (colorMapGenerated)
+        LogHelper.info("Attempting to create the fluid color maps" + (override ? " and overriding textures" : ""));
+        if (colorMapGenerated && !override)
         {
+            LogHelper.info("FluidColorMap already generated - skipping");
             return;
         }
 
@@ -134,31 +135,34 @@ public class RendererHelper {
         {
             IBlockState blockState = map.get(key).getBlock().getDefaultState();
 
-            icon = dispatcher.getBlockModelShapes().getTexture(blockState);
-
-
-
-            umin = (int)(WIDTH*icon.getMinU());
-            umax = (int)(WIDTH*icon.getMaxU());
-            vmin = (int)(HEIGHT*icon.getMinV());
-            vmax = (int)(HEIGHT*icon.getMaxV());
-            numPix = (umax-umin+1)*(vmax-vmin+1);
-            r = g = b = 0;
-            for (int u=umin;u<=umax;u++)
+            if (dispatcher == null)
             {
-                for (int v=vmin;v<=vmax;v++)
-                {
-                    pixel = blockTextures.getRGB(u,v);
-                    b += pixel & 255;
-                    g += (pixel>>8) & 255;
-                    r += (pixel>>16) & 255;
-                }
+                colorMap.put(key, new Vec3(1,1,1));
             }
-            r = r/numPix;
-            g = g/numPix;
-            b = b/numPix;
+            else {
+                icon = dispatcher.getBlockModelShapes().getTexture(blockState);
 
-            colorMap.put(key, new Vec3(r/256.0,g/256.0,b/256.0));
+
+                umin = (int) (WIDTH * icon.getMinU());
+                umax = (int) (WIDTH * icon.getMaxU());
+                vmin = (int) (HEIGHT * icon.getMinV());
+                vmax = (int) (HEIGHT * icon.getMaxV());
+                numPix = (umax - umin + 1) * (vmax - vmin + 1);
+                r = g = b = 0;
+                for (int u = umin; u <= umax; u++) {
+                    for (int v = vmin; v <= vmax; v++) {
+                        pixel = blockTextures.getRGB(u, v);
+                        b += pixel & 255;
+                        g += (pixel >> 8) & 255;
+                        r += (pixel >> 16) & 255;
+                    }
+                }
+                r = r / numPix;
+                g = g / numPix;
+                b = b / numPix;
+
+                colorMap.put(key, new Vec3(r / 256.0, g / 256.0, b / 256.0));
+            }
         }
     }
 
@@ -166,7 +170,7 @@ public class RendererHelper {
     {
         if (!colorMapGenerated)
         {
-            createFluidColorMaps();
+            createFluidColorMaps(false);
         }
 
         return colorMap.get(fluidName);
