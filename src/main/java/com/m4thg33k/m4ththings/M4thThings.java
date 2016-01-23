@@ -1,5 +1,6 @@
 package com.m4thg33k.m4ththings;
 
+import com.m4thg33k.m4ththings.init.ModBlocks;
 import com.m4thg33k.m4ththings.init.ModItems;
 import com.m4thg33k.m4ththings.proxies.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,7 +23,7 @@ public class M4thThings {
         }
     };
 
-    //0.0.1-alpha
+    //0.1.0-alpha
 
     @Mod.Instance
     public static M4thThings instance = new M4thThings();
