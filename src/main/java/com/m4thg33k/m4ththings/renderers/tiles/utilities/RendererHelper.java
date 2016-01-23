@@ -102,6 +102,8 @@ public class RendererHelper {
             {
                 LogHelper.info("Danger Will Robinson! The texture is null...for some reason...");
             }
+
+            createFluidColorMaps();
         }
     }
 
@@ -111,6 +113,7 @@ public class RendererHelper {
 
     public static void createFluidColorMaps()
     {
+        LogHelper.info("Attempting to create the fluid color maps");
         if (colorMapGenerated)
         {
             return;
