@@ -6,8 +6,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
+import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IWorldAccess;
@@ -37,6 +41,7 @@ public class RendererHelper {
     //the following methods are "borrowed" and adapted from LexManos: https://gist.github.com/LexManos/3c700306331080598daf
     public static void saveGlTexture(String fileName, int textureID, int mipmapLevels, boolean saveFile)
     {
+        LogHelper.info("Stitching the texture for my fluid stuffz...");
         GL11.glBindTexture(GL11.GL_TEXTURE_2D,textureID);
 
         GL11.glPixelStorei(GL11.GL_PACK_ALIGNMENT,1);
@@ -58,7 +63,20 @@ public class RendererHelper {
             buffer.get(data);
             bufferedImage.setRGB(0, 0, width, height, data, 0, width);
 
-            if (textureID == 8)
+            LogHelper.info("My image has texture ID: " + textureID);
+
+            ITextureObject iTextureObject = (ITextureObject)(Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationBlocksTexture));
+            int validTexture = -1;
+            if (iTextureObject==null)
+            {
+                LogHelper.info("Bad texture...");
+            }
+            else
+            {
+                validTexture = iTextureObject.getGlTextureId();
+            }
+
+            if (textureID == validTexture)//(textureID == 8)
             {
                 blockTextures = bufferedImage;
                 WIDTH = width;
@@ -80,6 +98,10 @@ public class RendererHelper {
 
             //Map<String,Fluid> fluidMap = FluidRegistry.getRegisteredFluids();
 
+            if (blockTextures==null)
+            {
+                LogHelper.info("Danger Will Robinson! The texture is null...for some reason...");
+            }
         }
     }
 
