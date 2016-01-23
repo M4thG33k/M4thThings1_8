@@ -1,6 +1,5 @@
 package com.m4thg33k.m4ththings;
 
-import com.m4thg33k.m4ththings.init.ModBlocks;
 import com.m4thg33k.m4ththings.init.ModItems;
 import com.m4thg33k.m4ththings.proxies.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,12 +21,6 @@ public class M4thThings {
             return ModItems.itemWrench;
         }
     };
-
-<<<<<<< HEAD
-    //0.0.1-alpha
-=======
-    //0.0.0-alpha
->>>>>>> 1.8.9_0.0.0-alpha
 
 
     @Mod.Instance
