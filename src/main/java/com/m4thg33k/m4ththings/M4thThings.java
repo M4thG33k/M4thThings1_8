@@ -23,7 +23,11 @@ public class M4thThings {
         }
     };
 
+<<<<<<< HEAD
     //0.0.1-alpha
+=======
+    //0.0.0-alpha
+>>>>>>> 1.8.9_0.0.0-alpha
 
 
     @Mod.Instance
