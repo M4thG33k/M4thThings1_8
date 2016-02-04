@@ -3,7 +3,6 @@ package com.m4thg33k.m4ththings.models;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
@@ -20,6 +19,7 @@ import java.io.IOException;
 public class ModelSphere {
 
     private IFlexibleBakedModel sphere;
+    //private OBJModel.OBJBakedModel bakedSphere;
 
     //private static final Function<ResourceLocation, TextureAtlasSprite> TEXTUREGETTER = input -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(input.toString());
 
@@ -31,14 +31,18 @@ public class ModelSphere {
             //OBJModel model = ((OBJModel) OBJLoader.instance.loadModel(new ResourceLocation("m4ththings:models/block/standardSphere.obj")));
             OBJModel model = ((OBJModel) OBJLoader.instance.loadModel(new ResourceLocation("m4ththings:models/block/fancySphere.obj")));
 
-
             //attempt to texture the model
-//            IModel sphereModel = ((OBJModel) model.retexture(ImmutableMap.of("#fancySphere",textureLocation.toString())));
-            IModel sphereModel = ((OBJModel) model.retexture(ImmutableMap.of("#fancySphere","minecraft:white")));
+            IModel sphereModel = ((OBJModel) model.retexture(ImmutableMap.of("#fancySphere",textureLocation.toString())));
+//            IModel sphereModel = ((OBJModel) model.retexture(ImmutableMap.of("#fancySphere","minecraft:white")));
+//            IModel sphereModel = (OBJModel)model;
+
 
 
             //turn on sphere
             sphere = sphereModel.bake(TRSRTransformation.identity(), Attributes.DEFAULT_BAKED_FORMAT, ModelHelper.TEXTUREGETTER);
+
+           // bakedSphere = new OBJModel.OBJBakedModel(model,model.getDefaultState(),)
+
 
 
         } catch (IOException e)

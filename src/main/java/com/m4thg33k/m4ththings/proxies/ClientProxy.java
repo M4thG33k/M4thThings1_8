@@ -1,6 +1,7 @@
 package com.m4thg33k.m4ththings.proxies;
 
 import com.m4thg33k.m4ththings.M4thThings;
+import com.m4thg33k.m4ththings.handlers.ModEventHandler;
 import com.m4thg33k.m4ththings.init.ModBlockRenderers;
 import com.m4thg33k.m4ththings.init.ModItemRenderers;
 import com.m4thg33k.m4ththings.init.ModTERenderers;
@@ -19,6 +20,7 @@ public class ClientProxy extends CommonProxy {
     public void preInit() {
         super.preInit();
 
+        ModEventHandler.clientPreInit();
         ModItemRenderers.preinit();
         OBJLoader.instance.addDomain(M4thThings.MOD_ID);
     }
@@ -26,6 +28,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void init() {
         super.init();
+
 
         ModBlockRenderers.init();
         ModItemRenderers.init();

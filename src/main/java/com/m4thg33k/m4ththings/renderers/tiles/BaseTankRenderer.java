@@ -27,6 +27,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
+import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
@@ -89,18 +90,26 @@ public class BaseTankRenderer extends TileEntitySpecialRenderer<TileBaseTank>{
             double perc = te.getPercentFilled();
             double scale = perc*0.75;
             GlStateManager.pushMatrix();
-//            GlStateManager.color(0,0,0,0.5f);
+//            GlStateManager.enableBlend();
+//            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA,GL11.GL_ONE_MINUS_SRC_ALPHA);
+            GlStateManager.enableRescaleNormal();
+            GlStateManager.color(1,1,1,1);
             GlStateManager.translate(0,0.05*perc*Math.sin(worldTime/20),0);
             GlStateManager.rotate((float)worldTime,0.0f,1.0f,0.0f);
             GlStateManager.scale(scale,scale,scale);
+            GlStateManager.enablePolygonOffset();
 
 
-
+//            Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
             sphere = new ModelSphere(te.getFluid().getFluid().getStill());
-//            sphere.renderSphere(true);
-            IFlexibleBakedModel sphereModel = sphere.getSphere();
+            sphere.renderSphere(true);
+            //IBakedModel sphereModel = sphere.getSphere();
 
-            Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(sphereModel,0.5f,1,0,0);
+
+
+
+            //GlStateManager.enableColorMaterial();
+            //Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(sphereModel,1.0f,0.1f,0,0);
 
             GlStateManager.popMatrix();
 
